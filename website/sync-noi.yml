@@ -1,31 +1,32 @@
-name: Sync noi repo
+name: Sync Noi-Bx repo
 
 # 定义触发条件
 on:
   push:
     branches:
-      - main  # 当推送到 main 分支时触发
-  workflow_dispatch: # 允许手动触发
+      - main  # 当推送到 main 分支时触发同步
+  workflow_dispatch:  # 手动触发
 
 jobs:
   sync_noi_repo:
     runs-on: ubuntu-latest
 
     steps:
-      # 步骤 1: 检出你的仓库
+      # 步骤 1: 检出你的仓库到指定路径
       - name: Checkout your repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # 保证可以拉取所有历史记录
+          fetch-depth: 0  # 拉取所有提交历史
+          path: ./your-repo  # 指定仓库克隆路径（你可以使用默认值或调整为所需路径）
 
-      # 步骤 2: 添加 noi 仓库作为远程仓库
-      - name: Add noi repository as a remote
+      # 步骤 2: 添加 Noi-Bx 仓库作为远程仓库
+      - name: Add Noi-Bx repository as a remote
         run: |
-          git remote add noi https://github.com/username/noi-repo.git  # 替换成 noi 仓库的 URL
-          git fetch noi  # 获取 noi 仓库的最新内容
+          git remote add noi https://github.com/liuwanfu770/Noi-Bx.git  # 替换为实际的 Noi-Bx 仓库 URL
+          git fetch noi  # 获取 Noi-Bx 仓库的最新内容
 
-      # 步骤 3: 合并 noi 仓库到你的仓库
-      - name: Sync noi repository with your repository
+      # 步骤 3: 合并 Noi-Bx 仓库到你的仓库
+      - name: Sync Noi-Bx repository with your repository
         run: |
-          git merge noi/main --allow-unrelated-histories  # 将 noi 仓库的 main 分支合并
-          git push origin main  # 将合并后的内容推送到你自己的仓库
+          git merge noi/main --allow-unrelated-histories  # 将 Noi-Bx 的 main 分支合并
+          git push origin main  # 将合并后的内容推送到你的仓库的 main 分支

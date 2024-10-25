@@ -1,32 +1,28 @@
-name: Sync Noi-Bx repo
+name: Deploy
 
-# 定义触发条件
 on:
   push:
     branches:
-      - main  # 当推送到 main 分支时触发同步
-  workflow_dispatch:  # 手动触发
+      - main  # 当推送到 main 分支时触发部署
 
 jobs:
-  sync_noi_repo:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 步骤 1: 检出你的仓库到指定路径
-      - name: Checkout your repository
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          fetch-depth: 0  # 拉取所有提交历史
-          path: ./your-repo  # 指定仓库克隆路径（你可以使用默认值或调整为所需路径）
+          node-version: '16.x'  # 使用 Node.js 16.x 版本
 
-      # 步骤 2: 添加 Noi-Bx 仓库作为远程仓库
-      - name: Add Noi-Bx repository as a remote
-        run: |
-          git remote add noi https://github.com/liuwanfu770/Noi-Bx.git  # 替换为实际的 Noi-Bx 仓库 URL
-          git fetch noi  # 获取 Noi-Bx 仓库的最新内容
+      - name: Install dependencies
+        run: npm install  # 使用 npm 安装依赖项
 
-      # 步骤 3: 合并 Noi-Bx 仓库到你的仓库
-      - name: Sync Noi-Bx repository with your repository
-        run: |
-          git merge noi/main --allow-unrelated-histories  # 将 Noi-Bx 的 main 分支合并
-          git push origin main  # 将合并后的内容推送到你的仓库的 main 分支
+      - name: Run build script
+        run: npm run build  # 使用 npm 执行 build 脚本
+
+      - name: Deploy
+        run: npm run deploy  # 使用 npm 执行部署脚本

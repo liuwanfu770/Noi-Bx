@@ -1,3 +1,3 @@
-# @noi/reset
+# Updated README
 
-Reset certain website styles to enhance compatibility with Noi.
+This is the updated content for all README.md files.

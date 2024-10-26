@@ -1,3 +1,3 @@
-# @noi/export-chatgpt
+# Updated README
 
-ChatGPT chat history export, supports PDF, Image, and Markdown formats.
+This is the updated content for all README.md files.

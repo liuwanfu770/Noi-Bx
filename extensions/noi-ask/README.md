@@ -1,3 +1,3 @@
-# @noi/ask
+# Updated README
 
-The best assistant for batch asking and quick typing of prompts.
+This is the updated content for all README.md files.
